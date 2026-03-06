@@ -20,19 +20,71 @@ string toUpperStr(string x){
     return y;
 }
 
-void importDataFromFile(){
+void importDataFromFile(string filename,vector<string> &name ,vector<int> &score ,vector<char> &grade){
+    string textline;
+    ifstream file;
+    file.open(filename);
+    char nameP[100];
+    int s1,s2,s3;
+    int t;
+     while (getline(file,textline)){
+          char formate[] = "%[^:]: %d %d %d";
+          sscanf(textline.c_str(),formate,&nameP,&s1,&s2,&s3);
+          name.push_back(nameP);
+          t = s1+s2+s3;
+          score.push_back(t);
+          grade.push_back(score2grade(t));
+     }
+     file.close();
 
 }
 
-void getCommand(){
+void getCommand(string &command, string &key){
+    cout << "Please input your command:"<<endl;
+    cin >> command; 
+    cin >> key;
+    
+}
+
+void searchName(vector <string> name,vector<int> score,vector<char>grade,string key){
+    int i =0;
+    bool noname = true;
+    for( i = 0; i < (int)name.size();i++){
+        if(toUpperStr(key) ==toUpperStr(name[i])){
+            cout <<"---------------------------------"<<endl;
+             cout << name[i]<<"'s score = "<<score[i]<<endl;
+             cout << name[i]<<"'s grade = "<<grade[i]<<endl;
+             cout <<"---------------------------------"<<endl;
+             noname = false;
+        }
+    }
+    if(noname){
+         cout <<"---------------------------------"<<endl;
+        cout << "Cannot found."<<endl;
+         cout <<"---------------------------------"<<endl;
+    }
+    
 
 }
 
-void searchName(){
+void searchGrade(vector<string> &names, vector<int> &scores, vector<char> &grades, string key){
+     int i =0;
+    bool nograde = true;
+    char g = key[0];
+    cout <<"---------------------------------"<<endl;
+    for( i = 0; i < (int)scores.size();i++){
+        if (g == grades[i] ){
+            cout<<names[i]<<" ("<<scores[i]<<")"<<endl;
+            nograde = false;
+        }
+        
+    }
+    if(nograde){
+         cout << "Cannot found."<<endl;
+    }
+    cout <<"---------------------------------"<<endl;
 
-}
 
-void searchGrade(){
 
 }
 

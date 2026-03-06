@@ -40,10 +40,14 @@ void importDataFromFile(string filename,vector<string> &name ,vector<int> &score
 }
 
 void getCommand(string &command, string &key){
+    string line;
     cout << "Please input your command:"<<endl;
-    cin >> command; 
-    cin >> key;
-    
+    getline(cin, line);
+    char cmd[100], k[100];
+    char formate[] = "%s %[^\n]";
+    sscanf(line.c_str(),formate,cmd,k);
+    command = cmd;
+    key = k;
 }
 
 void searchName(vector <string> name,vector<int> score,vector<char>grade,string key){
